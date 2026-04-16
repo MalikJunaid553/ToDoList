@@ -14,7 +14,16 @@ const App = ()=>{
     setTodoList([...todoList,todo]);
     setTodo("");
   }
-
+  const handleTodoDelete = (index)=>{
+    const newTodoList = todoList.filter((item , i) => i !== index)
+    setTodoList(newTodoList);
+  };
+  const handleTodoEdit = (index) => {
+    const itemToEdit = todoList[index];
+    setTodo(itemToEdit);
+    const newTodoList = todoList.filter((item, i) => i !== index);
+    setTodoList(newTodoList);
+  };
   return<>
   <div>
     <form onSubmit={handleTodoList}>
@@ -24,11 +33,11 @@ const App = ()=>{
       <button>Submit</button>
     </form>
 
-    {todoList.map((item)=>(
-      <div>
+    {todoList.map((item , index)=>(
+      <div key={index}>
         <div>ToDo:{item}</div>
-        <div><button>Edit</button></div>
-        <div><button>Submit</button></div>
+        <div><button onClick={()=>handleTodoEdit(index)}>Edit</button></div>
+        <div><button onClick={()=>handleTodoDelete(index)}>Delete</button></div>
       </div>
       
     ))}
